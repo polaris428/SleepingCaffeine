@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 
 internal class MainViewModel : BaseViewModel() {
     override fun fetchData(): Job = viewModelScope.launch {
+        if(_mainStateLiveData.value==null)
         setMainState(MainState.Home)
     }
     private var _mainStateLiveData = MutableLiveData<MainState>()

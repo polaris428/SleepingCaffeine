@@ -8,6 +8,7 @@ import com.polaris04.sleepingcaffeine.databinding.ActivityMainBinding
 import com.polaris04.sleepingcaffeine.presentation.BaseActivity
 import com.polaris04.sleepingcaffeine.presentation.graph.GraphFragment
 import com.polaris04.sleepingcaffeine.presentation.home.HomeFragment
+import com.polaris04.sleepingcaffeine.presentation.user.UserFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 internal class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
@@ -57,7 +58,8 @@ internal class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>()
                 viewModel.setTag(GraphFragment.TAG)
             }
             is MainState.User->{
-
+                viewModel.setFragment(UserFragment())
+                viewModel.setTag(UserFragment.TAG)
             }
         }
 
