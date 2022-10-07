@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "11860382311",
+    "project_id": "sleepingcaffeine-9cbf8",
+    "storage_bucket": "sleepingcaffeine-9cbf8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:11860382311:android:a7cb93bca83857b85f7ac2",
+        "android_client_info": {
+          "package_name": "com.polaris04.sleepingcaffeine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "11860382311-to0hn102hguhhn605v05gqe8u5nuphmb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.polaris04.sleepingcaffeine",
+            "certificate_hash": "6020058306f81a2d5fd2649c395accbc6e2e43ab"
+          }
+        },
+        {
+          "client_id": "11860382311-ucum5uar53481nbs6cmucbi0hva5hf0m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPg05tqrD62ZZsWidmt5mrMntatMBDeKA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "11860382311-ucum5uar53481nbs6cmucbi0hva5hf0m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
