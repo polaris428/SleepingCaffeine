@@ -2,4 +2,7 @@
     <string name="app_name">SleepingCaffeine</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="to_day_caffeine">오늘 섭취한 키페인</string>
+    <string name="today_title">오늘 당신의 카페인은\n 안녕하신가요?</string>
+    <string name="today_drink_caffeine">오늘 마신 카페인</string>
 </resources>
