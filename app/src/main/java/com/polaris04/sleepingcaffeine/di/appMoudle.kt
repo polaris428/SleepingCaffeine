@@ -20,7 +20,7 @@ val appModule = module {
     viewModel { HomeViewModel() }
     viewModel { GraphViewModel() }
     viewModel { UserViewModel() }
-    viewModel { SplashViewModel(get(),get()) }
+    viewModel { SplashViewModel(get(),get(),get()) }
 
 
     factory { GoogleSignInCheckUseCase(get()) }

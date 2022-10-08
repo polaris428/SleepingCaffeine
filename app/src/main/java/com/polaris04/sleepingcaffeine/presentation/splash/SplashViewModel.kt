@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.android.cleanarchitectureshoppingapp.data.preference.PreferenceManager
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 import com.polaris04.sleepingcaffeine.domain.GoogleSignInCheckUseCase
@@ -13,7 +14,8 @@ import kotlinx.coroutines.launch
 
 internal class SplashViewModel(
     private var googleSignInUseCase: GoogleSignInCheckUseCase,
-    private var googleSignInClient: GoogleSignInUseCase
+    private var googleSignInClient: GoogleSignInUseCase,
+    private var preferenceManager: PreferenceManager
 
 ) : BaseViewModel() {
 
@@ -40,11 +42,12 @@ internal class SplashViewModel(
 
     suspend fun login(task: Task<GoogleSignInAccount>)=viewModelScope.launch {
         if (googleSignInClient(task)) {
+
             _splashStateLiveData.postValue(SplashState.LoginSuccess)
-            Log.d("성공", "성공?")
+            preferenceManager.setString("profile",task.result.photoUrl.toString())
+            preferenceManager.setString("name",task.result.familyName+task.result.givenName.toString())
         } else {
             _splashStateLiveData.postValue(SplashState.LoginFail)
-            Log.d("실패", "실패?")
         }
 
     }
