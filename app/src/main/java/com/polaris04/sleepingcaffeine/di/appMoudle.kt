@@ -1,4 +1,5 @@
 package com.polaris04.sleepingcaffeine.di
+import com.android.cleanarchitectureshoppingapp.data.preference.PreferenceManager
 import com.polaris04.sleepingcaffeine.data.repository.GoogleSignRepository
 import com.polaris04.sleepingcaffeine.data.repository.GoogleSignRepositoryInterface
 import com.polaris04.sleepingcaffeine.domain.GoogleSignInCheckUseCase
@@ -26,6 +27,8 @@ val appModule = module {
     factory {  GoogleSignInUseCase(get()) }
 
     factory <GoogleSignRepositoryInterface>{GoogleSignRepository( androidContext()) }
+
+    single { PreferenceManager(androidContext()) }
 
     factory { SplashActivity() }
 
