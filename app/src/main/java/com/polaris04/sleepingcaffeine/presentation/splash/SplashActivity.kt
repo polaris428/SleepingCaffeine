@@ -15,16 +15,11 @@ import com.google.android.gms.tasks.Task
 import com.polaris04.sleepingcaffeine.databinding.ActivitySplashBinding
 import com.polaris04.sleepingcaffeine.presentation.BaseActivity
 import com.polaris04.sleepingcaffeine.presentation.main.MainActivity
+import com.polaris04.sleepingcaffeine.presentation.utilluty.GetGoogleSignInClient
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 internal class SplashActivity : BaseActivity<SplashViewModel, ActivitySplashBinding>() {
-    private val mGoogleSignInClient: GoogleSignInClient by lazy {
-        GoogleSignIn.getClient(this, gso);
-    }
-    private var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-        .requestEmail()
-        .build()
 
     override val viewModel by inject<SplashViewModel>()
 
@@ -33,17 +28,15 @@ internal class SplashActivity : BaseActivity<SplashViewModel, ActivitySplashBind
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        mGoogleSignInClient.signOut()
-            .addOnCompleteListener(this) {
-                Log.d("로그아웃", "로그아웃")
-            }
+
         binding.signInButton.setOnClickListener {
             signIn()
         }
     }
 
     private fun signIn(){
-        val signInIntent = mGoogleSignInClient.signInIntent
+
+        val signInIntent = GetGoogleSignInClient().getGoogleSignInClientSignInIntent(this)
         resultLauncher.launch(signInIntent)
     }
 
