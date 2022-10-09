@@ -13,43 +13,29 @@ internal class DrinkListActivity : BaseActivity<DrinkListViewModel, ActivityDrin
     override val viewModel by viewModel<DrinkListViewModel>()
     var adapter = DrinkAdapter()
     override fun getViewBinding() = ActivityDrinkListBinding.inflate(layoutInflater)
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initView()
 
-    }
 
-    private fun initView() {
-        with(binding) {
-            caffeineDrinkRecyclerView.adapter = adapter
-            adapter.setDrinkList(
-                drinkList = listOf<Drink>(
-                    Drink(
-                        "1",
-                        "adsf",
-                        "asdf".toUri(),
-                        "asf",
-                        100,
-                        listOf()
-                    ),
-                    Drink("1", "adsf", "asdf".toUri(), "asf", 100, listOf()),
-                    Drink("1", "adsf", "asdf".toUri(), "asf", 100, listOf()),
-                    Drink("1", "adsf", "asdf".toUri(), "asf", 100, listOf()),
-                    Drink("1", "adsf", "asdf".toUri(), "asf", 100, listOf()),
-                    Drink("1", "adsf", "asdf".toUri(), "asf", 100, listOf()),
-                    Drink("1", "adsf", "asdf".toUri(), "asf", 100, listOf()),
-                    Drink("1", "adsf", "asdf".toUri(), "asf", 100, listOf()),
-                    Drink("1", "adsf", "asdf".toUri(), "asf", 100, listOf()),
-                    Drink("1", "adsf", "asdf".toUri(), "asf", 100, listOf()),
-                    Drink("1", "adsf", "asdf".toUri(), "asf", 100, listOf()),
-                    Drink("1", "adsf", "asdf".toUri(), "asf", 100, listOf())
-                )
-            )
+    override fun observeData() = viewModel.drinkListState.observe(this) {
+        when (it) {
+            is DrinkListState.UnInitialized -> {
+                initView()
+            }
+            is DrinkListState.Loading -> {
+
+            }
+            is DrinkListState.Success -> {
+                handleSuccessState(it)
+            }
+
         }
     }
+    fun initView()= with(binding){
+        caffeineDrinkRecyclerView.adapter = adapter
+    }
+    fun handleSuccessState(state: DrinkListState.Success) = with(binding) {
 
-
-    override fun observeData() {
-
+        adapter.setDrinkList(drinkList = state.drinkList.data)
     }
 }
+
+
