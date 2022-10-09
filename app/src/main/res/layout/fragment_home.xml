@@ -81,6 +81,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/goalCaffeineConstraintLayout" />
 
+    <Button
+        android:id="@+id/addCaffeineButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="카페인 추가하기"
+        app:layout_constraintTop_toTopOf="@+id/todayCaffeineTextView"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/caffeineBeveragesRecyclerView"
         android:layout_width="0dp"

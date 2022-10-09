@@ -4,6 +4,7 @@ import com.polaris04.sleepingcaffeine.data.repository.GoogleSignRepository
 import com.polaris04.sleepingcaffeine.data.repository.GoogleSignRepositoryInterface
 import com.polaris04.sleepingcaffeine.domain.GoogleSignInCheckUseCase
 import com.polaris04.sleepingcaffeine.domain.GoogleSignInUseCase
+import com.polaris04.sleepingcaffeine.presentation.caffeine_list.DrinkListViewModel
 import com.polaris04.sleepingcaffeine.presentation.graph.GraphViewModel
 import com.polaris04.sleepingcaffeine.presentation.home.HomeViewModel
 import com.polaris04.sleepingcaffeine.presentation.main.MainViewModel
@@ -21,7 +22,7 @@ val appModule = module {
     viewModel { GraphViewModel() }
     viewModel { UserViewModel() }
     viewModel { SplashViewModel(get(),get(),get()) }
-
+    viewModel{DrinkListViewModel()}
 
     factory { GoogleSignInCheckUseCase(get()) }
     factory {  GoogleSignInUseCase(get()) }
