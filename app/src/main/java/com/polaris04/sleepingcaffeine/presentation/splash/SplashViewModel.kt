@@ -1,14 +1,13 @@
 package com.polaris04.sleepingcaffeine.presentation.splash
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.android.cleanarchitectureshoppingapp.data.preference.PreferenceManager
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
-import com.polaris04.sleepingcaffeine.domain.GoogleSignInCheckUseCase
-import com.polaris04.sleepingcaffeine.domain.GoogleSignInUseCase
+import com.polaris04.sleepingcaffeine.domain.account.GoogleSignInCheckUseCase
+import com.polaris04.sleepingcaffeine.domain.account.GoogleSignInUseCase
 import com.polaris04.sleepingcaffeine.presentation.BaseViewModel
 import kotlinx.coroutines.launch
 

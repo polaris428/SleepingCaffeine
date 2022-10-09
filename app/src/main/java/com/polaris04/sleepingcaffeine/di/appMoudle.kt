@@ -1,9 +1,9 @@
 package com.polaris04.sleepingcaffeine.di
 import com.android.cleanarchitectureshoppingapp.data.preference.PreferenceManager
-import com.polaris04.sleepingcaffeine.data.repository.GoogleSignRepository
-import com.polaris04.sleepingcaffeine.data.repository.GoogleSignRepositoryInterface
-import com.polaris04.sleepingcaffeine.domain.GoogleSignInCheckUseCase
-import com.polaris04.sleepingcaffeine.domain.GoogleSignInUseCase
+import com.polaris04.sleepingcaffeine.data.repository.account.GoogleSignRepository
+import com.polaris04.sleepingcaffeine.data.repository.account.GoogleSignRepositoryInterface
+import com.polaris04.sleepingcaffeine.domain.account.GoogleSignInCheckUseCase
+import com.polaris04.sleepingcaffeine.domain.account.GoogleSignInUseCase
 import com.polaris04.sleepingcaffeine.presentation.caffeine_list.DrinkListViewModel
 import com.polaris04.sleepingcaffeine.presentation.graph.GraphViewModel
 import com.polaris04.sleepingcaffeine.presentation.home.HomeViewModel
@@ -27,7 +27,7 @@ val appModule = module {
     factory { GoogleSignInCheckUseCase(get()) }
     factory {  GoogleSignInUseCase(get()) }
 
-    factory <GoogleSignRepositoryInterface>{GoogleSignRepository( androidContext()) }
+    factory <GoogleSignRepositoryInterface>{ GoogleSignRepository( androidContext()) }
 
     single { PreferenceManager(androidContext()) }
 

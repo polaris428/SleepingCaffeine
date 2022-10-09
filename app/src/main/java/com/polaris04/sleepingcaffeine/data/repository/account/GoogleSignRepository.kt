@@ -1,4 +1,4 @@
-package com.polaris04.sleepingcaffeine.data.repository
+package com.polaris04.sleepingcaffeine.data.repository.account
 import android.content.Context
 import android.util.Log
 import com.google.android.gms.auth.api.signin.GoogleSignIn
