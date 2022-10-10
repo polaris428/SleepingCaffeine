@@ -13,7 +13,9 @@ import com.polaris04.sleepingcaffeine.data.repository.drink.DrinkRepositoryInter
 import com.polaris04.sleepingcaffeine.domain.account.GoogleSignInCheckUseCase
 import com.polaris04.sleepingcaffeine.domain.account.GoogleSignInUseCase
 import com.polaris04.sleepingcaffeine.domain.drink.GetDrinkListUseCase
+import com.polaris04.sleepingcaffeine.domain.drink.GetDrinkUseCase
 import com.polaris04.sleepingcaffeine.presentation.caffeine_list.DrinkListViewModel
+import com.polaris04.sleepingcaffeine.presentation.drink_detail.DrinkDetailViewModel
 import com.polaris04.sleepingcaffeine.presentation.graph.GraphViewModel
 import com.polaris04.sleepingcaffeine.presentation.home.HomeViewModel
 import com.polaris04.sleepingcaffeine.presentation.main.MainViewModel
@@ -32,6 +34,7 @@ val appModule = module {
     viewModel { UserViewModel() }
     viewModel { SplashViewModel(get(), get(), get()) }
     viewModel { DrinkListViewModel(get()) }
+    viewModel { (drinkId:String)->DrinkDetailViewModel(drinkId,get()) }
 
     //Coroutines Dispatcher
     single { Dispatchers.IO }
@@ -41,10 +44,10 @@ val appModule = module {
     factory { GoogleSignInUseCase(get()) }
 
     factory { GetDrinkListUseCase(get()) }
-
+    factory {  GetDrinkUseCase(get()) }
 
     factory<GoogleSignRepositoryInterface> { GoogleSignRepository(androidContext()) }
-    factory<DrinkRepositoryInterface> { DrinkRepository(get(),get()) }
+    factory<DrinkRepositoryInterface> { DrinkRepository(get(), get()) }
 
     single { PreferenceManager(androidContext()) }
 

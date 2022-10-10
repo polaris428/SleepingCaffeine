@@ -43,7 +43,6 @@ internal class DrinkListActivity : BaseActivity<DrinkListViewModel, ActivityDrin
     private fun handleSuccessState(state: DrinkListState.Success) = with(binding) {
         caffeineDrinkProgressBar.isVisible=false
         adapter.setDrinkList(drinkList = state.drinkList.data){
-            Log.d("asfdf","adsfsa")
             startActivity(
                 DrinkDetailActivity.newIntent(this@DrinkListActivity , it._id)
             )
