@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface DrinkApiService {
     @GET("api/drink")
-    suspend fun getDrink():Response<CaffeineDrinkEntity>
+    suspend fun getDrinkList():Response<CaffeineDrinkEntity>
 
 }
