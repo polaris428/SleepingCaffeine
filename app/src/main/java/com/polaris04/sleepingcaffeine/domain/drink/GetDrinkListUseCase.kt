@@ -6,6 +6,6 @@ import com.polaris04.sleepingcaffeine.domain.UseCase
 
 class GetDrinkListUseCase(var drinkRepositoryInterface: DrinkRepositoryInterface) : UseCase {
     suspend operator fun invoke(): CaffeineDrinkEntity {
-        return drinkRepositoryInterface.getDrink()
+        return drinkRepositoryInterface.getDrinkList()
     }
 }
