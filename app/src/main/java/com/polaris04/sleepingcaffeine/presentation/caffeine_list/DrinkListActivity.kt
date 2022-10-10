@@ -3,6 +3,7 @@ package com.polaris04.sleepingcaffeine.presentation.caffeine_list
 import android.app.Activity
 import android.os.Bundle
 import androidx.core.net.toUri
+import androidx.core.view.isVisible
 import com.polaris04.sleepingcaffeine.data.entity.drink.Drink
 import com.polaris04.sleepingcaffeine.databinding.ActivityDrinkListBinding
 import com.polaris04.sleepingcaffeine.presentation.BaseActivity
@@ -21,7 +22,7 @@ internal class DrinkListActivity : BaseActivity<DrinkListViewModel, ActivityDrin
                 initView()
             }
             is DrinkListState.Loading -> {
-
+                handleLoading()
             }
             is DrinkListState.Success -> {
                 handleSuccessState(it)
@@ -29,11 +30,14 @@ internal class DrinkListActivity : BaseActivity<DrinkListViewModel, ActivityDrin
 
         }
     }
-    fun initView()= with(binding){
+    private fun initView()= with(binding){
         caffeineDrinkRecyclerView.adapter = adapter
     }
-    fun handleSuccessState(state: DrinkListState.Success) = with(binding) {
-
+    private fun handleLoading()= with(binding){
+        caffeineDrinkProgressBar.isVisible=true
+    }
+    private fun handleSuccessState(state: DrinkListState.Success) = with(binding) {
+        caffeineDrinkProgressBar.isVisible=false
         adapter.setDrinkList(drinkList = state.drinkList.data)
     }
 }

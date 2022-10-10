@@ -9,7 +9,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.polaris04.sleepingcaffeine.R
 
-data class Drink(var _id:String,var name:String,var photo:String,var description:String,var caffeine:Int,var like:List<Like>)
+data class Drink(var _id:String,var name:String,var photo:String,var description:String,var caffeine:Int,var like:List<String>)
 @BindingAdapter(
     value = ["profileUrl", "profilePlaceHolder"],
     requireAll = false
