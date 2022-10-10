@@ -1,13 +1,17 @@
 package com.polaris04.sleepingcaffeine.presentation.caffeine_list
 
 import android.app.Activity
+import android.content.ClipData.newIntent
 import android.os.Bundle
+import android.util.Log
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import com.polaris04.sleepingcaffeine.data.entity.drink.Drink
 import com.polaris04.sleepingcaffeine.databinding.ActivityDrinkListBinding
 import com.polaris04.sleepingcaffeine.presentation.BaseActivity
 import com.polaris04.sleepingcaffeine.presentation.caffeine_list.adapter.DrinkAdapter
+import com.polaris04.sleepingcaffeine.presentation.drink_detail.DrinkDetailActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 internal class DrinkListActivity : BaseActivity<DrinkListViewModel, ActivityDrinkListBinding>() {
@@ -38,8 +42,15 @@ internal class DrinkListActivity : BaseActivity<DrinkListViewModel, ActivityDrin
     }
     private fun handleSuccessState(state: DrinkListState.Success) = with(binding) {
         caffeineDrinkProgressBar.isVisible=false
-        adapter.setDrinkList(drinkList = state.drinkList.data)
+        adapter.setDrinkList(drinkList = state.drinkList.data){
+            Log.d("asfdf","adsfsa")
+            startActivity(
+                DrinkDetailActivity.newIntent(this@DrinkListActivity , it._id)
+            )
+        }
+
     }
+
 }
 
 

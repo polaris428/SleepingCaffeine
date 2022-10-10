@@ -8,18 +8,25 @@ import com.polaris04.sleepingcaffeine.databinding.ItemDrinkBinding
 
 class DrinkAdapter : RecyclerView.Adapter<DrinkAdapter.DrinkViewHolder>() {
     private var drinkList: List<Drink> = listOf()
+    private lateinit var productItemClickListener: (Drink) -> Unit
 
-    class DrinkViewHolder(val binding: ItemDrinkBinding) : RecyclerView.ViewHolder(binding.root) {
+    class DrinkViewHolder(
+        val binding: ItemDrinkBinding,
+        val productItemClickListener: (Drink) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(drink: Drink) {
 
             binding.drink = drink
+            binding.root.setOnClickListener {
+                productItemClickListener(drink)
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DrinkViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemDrinkBinding.inflate(inflater, parent, false)
-        return DrinkViewHolder(binding)
+        return DrinkViewHolder(binding,productItemClickListener)
     }
 
     override fun onBindViewHolder(holder: DrinkViewHolder, position: Int) {
@@ -28,8 +35,9 @@ class DrinkAdapter : RecyclerView.Adapter<DrinkAdapter.DrinkViewHolder>() {
 
     override fun getItemCount() = drinkList.size
 
-    fun setDrinkList(drinkList: List<Drink>) {
+    fun setDrinkList(drinkList: List<Drink>, drinkItemClickListener: (Drink) -> Unit = { }) {
         this.drinkList = drinkList
+        this.productItemClickListener = drinkItemClickListener
         notifyDataSetChanged()
     }
 }

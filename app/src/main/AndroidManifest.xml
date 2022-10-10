@@ -15,6 +15,9 @@
         android:theme="@style/Theme.SleepingCaffeine"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.drink_detail.DrinkDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.caffeine_list.DrinkListActivity"
             android:exported="false" />
         <activity
