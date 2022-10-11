@@ -8,10 +8,13 @@ import com.polaris04.sleepingcaffeine.data.network.drinkRetrofit
 import com.polaris04.sleepingcaffeine.data.network.provideGsonConverterFactory
 import com.polaris04.sleepingcaffeine.data.repository.account.GoogleSignRepository
 import com.polaris04.sleepingcaffeine.data.repository.account.GoogleSignRepositoryInterface
+import com.polaris04.sleepingcaffeine.data.repository.caffeine.CaffeineRepository
+import com.polaris04.sleepingcaffeine.data.repository.caffeine.CaffeineRepositoryInterface
 import com.polaris04.sleepingcaffeine.data.repository.drink.DrinkRepository
 import com.polaris04.sleepingcaffeine.data.repository.drink.DrinkRepositoryInterface
 import com.polaris04.sleepingcaffeine.domain.account.GoogleSignInCheckUseCase
 import com.polaris04.sleepingcaffeine.domain.account.GoogleSignInUseCase
+import com.polaris04.sleepingcaffeine.domain.caffeine.PostCaffeineUseCase
 import com.polaris04.sleepingcaffeine.domain.drink.GetDrinkListUseCase
 import com.polaris04.sleepingcaffeine.domain.drink.GetDrinkUseCase
 import com.polaris04.sleepingcaffeine.presentation.caffeine_list.DrinkListViewModel
@@ -34,7 +37,7 @@ val appModule = module {
     viewModel { UserViewModel() }
     viewModel { SplashViewModel(get(), get(), get()) }
     viewModel { DrinkListViewModel(get()) }
-    viewModel { (drinkId:String)->DrinkDetailViewModel(drinkId,get(),get()) }
+    viewModel { (drinkId:String)->DrinkDetailViewModel(drinkId,get(),get(),get(),get()) }
 
     //Coroutines Dispatcher
     single { Dispatchers.IO }
@@ -46,8 +49,11 @@ val appModule = module {
     factory { GetDrinkListUseCase(get()) }
     factory {  GetDrinkUseCase(get()) }
 
+    factory { PostCaffeineUseCase(get()) }
+
     factory<GoogleSignRepositoryInterface> { GoogleSignRepository(androidContext()) }
     factory<DrinkRepositoryInterface> { DrinkRepository(get(), get()) }
+    factory <CaffeineRepositoryInterface>{ CaffeineRepository(get()) }
 
     single { PreferenceManager(androidContext()) }
 

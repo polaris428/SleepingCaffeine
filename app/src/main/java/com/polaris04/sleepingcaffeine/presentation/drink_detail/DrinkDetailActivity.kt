@@ -14,6 +14,7 @@ import com.polaris04.sleepingcaffeine.R
 import com.polaris04.sleepingcaffeine.databinding.ActivityDrinkDetailBinding
 import com.polaris04.sleepingcaffeine.presentation.BaseActivityDataBinding
 import com.polaris04.sleepingcaffeine.presentation.drink_detail.adapter.DrinkDetailAdapter
+import com.polaris04.sleepingcaffeine.presentation.main.MainActivity
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import java.net.URL
@@ -31,7 +32,8 @@ internal class DrinkDetailActivity :
             }
 
     }
-    var adapter=DrinkDetailAdapter()
+
+    var adapter = DrinkDetailAdapter()
 
 
     override val viewModel by inject<DrinkDetailViewModel>() {
@@ -45,56 +47,74 @@ internal class DrinkDetailActivity :
     override fun observeData() = viewModel.drinkDetailState.observe(this) {
         when (it) {
             is DrinkDetailState.UnInitialized -> {
-               initViews()
+                initViews()
             }
             is DrinkDetailState.ItemLoading -> {
                 handleLoading()
             }
-            is DrinkDetailState.ListLoading->{
+            is DrinkDetailState.ListLoading -> {
 
             }
             is DrinkDetailState.ItemSuccess -> {
                 handleItemSuccessState(it)
             }
-            is DrinkDetailState.ListSuccess->{
+            is DrinkDetailState.ListSuccess -> {
                 handleListSuccessState(it)
+            }
+            is DrinkDetailState.AddDrink -> {
+                handleAddDrink()
+            }
+            is DrinkDetailState.Error -> {
+
             }
 
         }
     }
 
-    private fun initViews() = with(binding){
+    private fun initViews() = with(binding) {
         alternativeCaffeineRecyclerView.layoutManager =
             LinearLayoutManager(root.context, RecyclerView.HORIZONTAL, false)
-        alternativeCaffeineRecyclerView.adapter=adapter
+        alternativeCaffeineRecyclerView.adapter = adapter
     }
+
     private fun handleLoading() = with(binding) {
         progressBar.isVisible = true
     }
 
     private fun handleItemSuccessState(state: DrinkDetailState.ItemSuccess) = with(binding) {
-        drink = state.drink
+        val drink = state.drink
         val url = URL(state.drink.photo)
-        title=state.drink.name
+        title = state.drink.name
         progressBar.isGone = true
         thread {
             val mIcon1 = BitmapFactory.decodeStream(url.openConnection().getInputStream());
             createPaletteAsync(mIcon1)
         }
+        drinkAddButton.setOnClickListener {
+            viewModel.postCaffeine(drinkId = drink._id, caffeine = drink.caffeine)
+        }
 
     }
+
     private fun handleListSuccessState(state: DrinkDetailState.ListSuccess) = with(binding) {
         adapter.setDrinkList(state.caffeineDrinkEntity.data)
         state.caffeineDrinkEntity
     }
+
+    private fun handleAddDrink() = with(binding) {
+        var intent = Intent(this@DrinkDetailActivity, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP //액티비티 스택제거
+        startActivity(intent)
+    }
+
     private fun createPaletteAsync(bitmap: Bitmap) {
         Palette.from(bitmap).generate { palette ->
             val vibrantSwatch = palette!!.darkVibrantSwatch
             if (vibrantSwatch != null) {
                 val color = vibrantSwatch.rgb
                 binding.drinkImageView.setBackgroundColor(color)
-            }else{
-                Toast.makeText(this,"test",Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "test", Toast.LENGTH_SHORT).show()
             }
 
         }

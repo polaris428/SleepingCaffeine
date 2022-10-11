@@ -18,4 +18,8 @@ sealed class DrinkDetailState {
     data class ItemSuccess(
         val drink: Drink
     ) : DrinkDetailState()
+
+    object AddDrink :DrinkDetailState()
+
+    object Error:DrinkDetailState()
 }
