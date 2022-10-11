@@ -7,5 +7,5 @@ interface DrinkRepositoryInterface {
 
     suspend fun getDrinkList():CaffeineDrinkEntity
 
-    suspend fun getDrink(drinkId:String):Drink
+    suspend fun getDrink(drinkId:String):Drink?
 }

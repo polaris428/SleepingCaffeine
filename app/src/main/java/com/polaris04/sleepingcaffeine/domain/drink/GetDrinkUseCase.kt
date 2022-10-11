@@ -8,7 +8,7 @@ class GetDrinkUseCase(
     private var drinkRepositoryInterface: DrinkRepositoryInterface,
 
 ) : UseCase {
-    suspend operator fun invoke( drinkId: String): Drink {
+    suspend operator fun invoke( drinkId: String): Drink? {
         return drinkRepositoryInterface.getDrink(drinkId)
 
     }

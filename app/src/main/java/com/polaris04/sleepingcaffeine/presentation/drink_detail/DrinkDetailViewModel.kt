@@ -27,8 +27,17 @@ internal class DrinkDetailViewModel(
     override fun fetchData(): Job = viewModelScope.launch {
         setState(DrinkDetailState.ItemLoading)
         setState(DrinkDetailState.ListLoading)
-        setState(DrinkDetailState.ListSuccess(getDrinkListUseCase()))
-        setState(DrinkDetailState.ItemSuccess(getDrinkUseCase(drinkId)))
+        getDrinkListUseCase().let {
+            setState(DrinkDetailState.ListSuccess(it))
+        } ?:kotlin.run {
+            setState(DrinkDetailState.Error)
+        }
+        getDrinkUseCase(drinkId)?.let {
+            setState(DrinkDetailState.ItemSuccess(it))
+        } ?:kotlin.run {
+            setState(DrinkDetailState.Error)
+        }
+
 
 
     }

@@ -15,6 +15,7 @@ import com.polaris04.sleepingcaffeine.databinding.ActivityDrinkDetailBinding
 import com.polaris04.sleepingcaffeine.presentation.BaseActivityDataBinding
 import com.polaris04.sleepingcaffeine.presentation.drink_detail.adapter.DrinkDetailAdapter
 import com.polaris04.sleepingcaffeine.presentation.main.MainActivity
+import com.polaris04.sleepingcaffeine.presentation.utilluty.ToastMare
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import java.net.URL
@@ -66,6 +67,7 @@ internal class DrinkDetailActivity :
             }
             is DrinkDetailState.Error -> {
 
+               handleError()
             }
 
         }
@@ -102,7 +104,13 @@ internal class DrinkDetailActivity :
     }
 
     private fun handleAddDrink() = with(binding) {
-        var intent = Intent(this@DrinkDetailActivity, MainActivity::class.java)
+        val intent = Intent(this@DrinkDetailActivity, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP //액티비티 스택제거
+        startActivity(intent)
+    }
+    private fun handleError() = with(binding) {
+        ToastMare().ToastShort(this@DrinkDetailActivity,getString(R.string.Error))
+        val intent = Intent(this@DrinkDetailActivity, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP //액티비티 스택제거
         startActivity(intent)
     }
@@ -120,5 +128,7 @@ internal class DrinkDetailActivity :
         }
 
     }
+
+
 
 }
