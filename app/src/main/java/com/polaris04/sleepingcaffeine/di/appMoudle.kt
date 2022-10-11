@@ -34,7 +34,7 @@ val appModule = module {
     viewModel { UserViewModel() }
     viewModel { SplashViewModel(get(), get(), get()) }
     viewModel { DrinkListViewModel(get()) }
-    viewModel { (drinkId:String)->DrinkDetailViewModel(drinkId,get()) }
+    viewModel { (drinkId:String)->DrinkDetailViewModel(drinkId,get(),get()) }
 
     //Coroutines Dispatcher
     single { Dispatchers.IO }
