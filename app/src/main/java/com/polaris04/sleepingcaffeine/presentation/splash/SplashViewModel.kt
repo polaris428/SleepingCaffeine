@@ -1,5 +1,6 @@
 package com.polaris04.sleepingcaffeine.presentation.splash
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -22,6 +23,7 @@ internal class SplashViewModel(
     override fun fetchData() = viewModelScope.launch {
         if (googleSignInUseCase()) {
             setSplashState((SplashState.LoginSuccess))
+            Log.d("토큰",preferenceManager.getIdToken())
         } else {
             setSplashState((SplashState.NonLogin))
 
@@ -45,7 +47,8 @@ internal class SplashViewModel(
             _splashStateLiveData.postValue(SplashState.LoginSuccess)
             preferenceManager.setString("profile",task.result.photoUrl.toString())
             preferenceManager.setString("name",task.result.familyName+task.result.givenName.toString())
-            preferenceManager.putIdToken(task.result.idToken.toString())
+            preferenceManager.putIdToken(task.result.id.toString())
+
         } else {
             _splashStateLiveData.postValue(SplashState.LoginFail)
         }
