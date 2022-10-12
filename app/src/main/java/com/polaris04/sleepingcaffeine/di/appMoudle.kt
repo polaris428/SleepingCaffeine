@@ -14,6 +14,7 @@ import com.polaris04.sleepingcaffeine.data.repository.drink.DrinkRepository
 import com.polaris04.sleepingcaffeine.data.repository.drink.DrinkRepositoryInterface
 import com.polaris04.sleepingcaffeine.domain.account.GoogleSignInCheckUseCase
 import com.polaris04.sleepingcaffeine.domain.account.GoogleSignInUseCase
+import com.polaris04.sleepingcaffeine.domain.caffeine.GetUserCaffeineUseCase
 import com.polaris04.sleepingcaffeine.domain.caffeine.PostCaffeineUseCase
 import com.polaris04.sleepingcaffeine.domain.drink.GetDrinkListUseCase
 import com.polaris04.sleepingcaffeine.domain.drink.GetDrinkUseCase
@@ -32,7 +33,7 @@ import org.koin.dsl.module
 val appModule = module {
 
     viewModel { MainViewModel() }
-    viewModel { HomeViewModel() }
+    viewModel { HomeViewModel(get(),get()) }
     viewModel { GraphViewModel() }
     viewModel { UserViewModel() }
     viewModel { SplashViewModel(get(), get(), get()) }
@@ -50,6 +51,7 @@ val appModule = module {
     factory {  GetDrinkUseCase(get()) }
 
     factory { PostCaffeineUseCase(get()) }
+    factory { GetUserCaffeineUseCase(get()) }
 
     factory<GoogleSignRepositoryInterface> { GoogleSignRepository(androidContext()) }
     factory<DrinkRepositoryInterface> { DrinkRepository(get(), get()) }
