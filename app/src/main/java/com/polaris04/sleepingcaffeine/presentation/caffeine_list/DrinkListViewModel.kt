@@ -17,7 +17,15 @@ internal class DrinkListViewModel(
 
     override fun fetchData(): Job = viewModelScope.launch {
         setState(DrinkListState.Loading)
-        setState(DrinkListState.Success(getDrinkListUseCase()))
+        getDrinkListUseCase()?.let {
+            setState(DrinkListState.Success(it))
+            Log.d("시작",it.toString())
+
+        }?:kotlin.run {
+            setState(DrinkListState.Error)
+            Log.d("실패애","시류ㅐ애")
+        }
+
 
     }
 

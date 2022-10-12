@@ -29,7 +29,12 @@ internal class DrinkListActivity : BaseActivity<DrinkListViewModel, ActivityDrin
                 handleLoading()
             }
             is DrinkListState.Success -> {
+                Log.d("오오옹","오옹")
                 handleSuccessState(it)
+
+            }
+            is DrinkListState.Error->{
+
             }
 
         }
@@ -42,7 +47,7 @@ internal class DrinkListActivity : BaseActivity<DrinkListViewModel, ActivityDrin
     }
     private fun handleSuccessState(state: DrinkListState.Success) = with(binding) {
         caffeineDrinkProgressBar.isVisible=false
-        adapter.setDrinkList(drinkList = state.drinkList.data){
+        adapter.setDrinkList(drinkList = state.drinkList!!.data){
             startActivity(
                 DrinkDetailActivity.newIntent(this@DrinkListActivity , it._id)
             )

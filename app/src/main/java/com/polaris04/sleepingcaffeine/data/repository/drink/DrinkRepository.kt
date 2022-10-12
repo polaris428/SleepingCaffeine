@@ -12,28 +12,27 @@ class DrinkRepository(
     private val ioDispatcher: CoroutineDispatcher
 ) : DrinkRepositoryInterface {
 
-    override suspend fun getDrinkList(): CaffeineDrinkEntity = withContext(ioDispatcher) {
-        Log.d("adfs", "fdajjdkjfaahlkdj")
+    override suspend fun getDrinkList(): CaffeineDrinkEntity? = withContext(ioDispatcher) {
         val response = drinkApi.getDrinkList()
-        Log.d("adfs", "fdajjdkjfaahlkdj")
-        Log.d(response.body().toString(), response.code().toString())
         return@withContext if (response.isSuccessful) {
-            response.body()!!
+            Log.d(response.code().toString(),response.message().toString())
+            Log.d("ㅁㅇㄴㄻㄹㅇ"+response.body().toString(),"성공")
+
+            response.body()
         } else {
-            Log.d(response.body().toString(), response.code().toString())
-            CaffeineDrinkEntity(listOf())
+            Log.d("성송","성공")
+            null
         }
     }
 
-    override suspend fun getDrink(drinkId:String): Drink? = withContext(ioDispatcher) {
-        val response=drinkApi.getDrink(drinkId)
-        Log.d(drinkId,"아아아디디")
-        Log.d(response.message(),response.code().toString())
-        return@withContext if (response.isSuccessful){
+    override suspend fun getDrink(drinkId: String): Drink? = withContext(ioDispatcher) {
+        val response = drinkApi.getDrink(drinkId)
+        Log.d(response.message(), response.code().toString())
+        return@withContext if (response.isSuccessful) {
             response.body()
 
-        }else{
-           null
+        } else {
+            null
         }
     }
 }

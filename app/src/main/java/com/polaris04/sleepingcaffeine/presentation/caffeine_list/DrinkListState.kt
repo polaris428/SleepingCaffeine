@@ -6,8 +6,9 @@ sealed class DrinkListState {
     object UnInitialized:DrinkListState()
     object Loading:DrinkListState()
     data class Success(
-        val drinkList: CaffeineDrinkEntity
+        val drinkList: CaffeineDrinkEntity?
     ):DrinkListState()
+    object Error:DrinkListState()
 
 
 }
