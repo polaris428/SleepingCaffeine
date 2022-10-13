@@ -1,6 +1,5 @@
 package com.polaris04.sleepingcaffeine.presentation.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.polaris04.sleepingcaffeine.R
@@ -8,6 +7,7 @@ import com.polaris04.sleepingcaffeine.databinding.ActivityMainBinding
 import com.polaris04.sleepingcaffeine.presentation.BaseActivity
 import com.polaris04.sleepingcaffeine.presentation.graph.GraphFragment
 import com.polaris04.sleepingcaffeine.presentation.home.HomeFragment
+import com.polaris04.sleepingcaffeine.presentation.map.MapFragment
 import com.polaris04.sleepingcaffeine.presentation.user.UserFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -34,6 +34,10 @@ internal class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>()
                     viewModel.setMainState(MainState.Graph)
                     true
                 }
+                R.id.menu_map->{
+                    viewModel.setMainState(MainState.Map)
+                    true
+                }
                 R.id.menu_user->{
                     viewModel.setMainState(MainState.User)
                     true
@@ -57,10 +61,15 @@ internal class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>()
                 viewModel.setFragment(GraphFragment())
                 viewModel.setTag(GraphFragment.TAG)
             }
+            is MainState.Map->{
+                viewModel.setFragment(MapFragment())
+                viewModel.setTag(MapFragment.TAG)
+            }
             is MainState.User->{
                 viewModel.setFragment(UserFragment())
                 viewModel.setTag(UserFragment.TAG)
             }
+
         }
 
     }

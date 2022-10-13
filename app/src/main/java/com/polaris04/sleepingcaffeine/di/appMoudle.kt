@@ -23,6 +23,7 @@ import com.polaris04.sleepingcaffeine.presentation.drink_detail.DrinkDetailViewM
 import com.polaris04.sleepingcaffeine.presentation.graph.GraphViewModel
 import com.polaris04.sleepingcaffeine.presentation.home.HomeViewModel
 import com.polaris04.sleepingcaffeine.presentation.main.MainViewModel
+import com.polaris04.sleepingcaffeine.presentation.map.MapViewModel
 import com.polaris04.sleepingcaffeine.presentation.splash.SplashViewModel
 import com.polaris04.sleepingcaffeine.presentation.user.UserViewModel
 import kotlinx.coroutines.Dispatchers
@@ -39,6 +40,7 @@ val appModule = module {
     viewModel { SplashViewModel(get(), get(), get()) }
     viewModel { DrinkListViewModel(get()) }
     viewModel { (drinkId:String)->DrinkDetailViewModel(drinkId,get(),get(),get(),get()) }
+    viewModel{MapViewModel()}
 
     //Coroutines Dispatcher
     single { Dispatchers.IO }
