@@ -48,13 +48,19 @@ internal class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>()
     }
 
     private fun initView() = with(binding){
+        initCircleFlowingView()
+        loadImage()
+
         binding.addCaffeineButton.setOnClickListener {
             startActivity(Intent(binding.root.context, DrinkListActivity::class.java))
         }
-        circleFlowingView.setLineColor("#000000")
-        circleFlowingView.setSpeed(2)
-        circleFlowingView.setProgress(50f)
-        Log.d("이미지",viewModel.preferenceManager.getString("profileImage").toString())
+
+
+
+
+    }
+
+    private fun loadImage() =with(binding){
         profileImageView.loadCenterCrop(viewModel.preferenceManager.getString("profileImage").toString(),20f)
     }
 
@@ -71,5 +77,11 @@ internal class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>()
     }
     private fun handleError(){
 
+    }
+
+    private fun initCircleFlowingView()= with(binding){
+        circleFlowingView.setLineColor("#000000")
+        circleFlowingView.setSpeed(2)
+        circleFlowingView.setProgress(50f)
     }
 }
