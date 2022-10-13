@@ -1,9 +1,15 @@
 package com.polaris04.sleepingcaffeine.presentation.splash
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.lifecycle.viewModelScope
@@ -70,6 +76,7 @@ internal class SplashActivity : BaseActivity<SplashViewModel, ActivitySplashBind
 
     private fun handleNonLogin() = with(binding) {
         signInButton.isVisible = true
+        permissionsCheck()
 
     }
 
@@ -80,6 +87,26 @@ internal class SplashActivity : BaseActivity<SplashViewModel, ActivitySplashBind
     private fun handleLoginSuccess() = with(binding) {
         signInButton.isGone = true
         startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+    }
+
+    private fun permissionsCheck(){
+        val permissions = arrayOf(
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION)
+
+        requirePermissions(permissions)
+
+    }
+    private fun requirePermissions(permissions: Array<String>) {
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+
+        } else {
+            val isAllPermissionsGranted = permissions.all { ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED }
+            if (!isAllPermissionsGranted) {
+                ActivityCompat.requestPermissions(this, permissions,0)
+            }
+        }
+
     }
 
 

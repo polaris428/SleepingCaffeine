@@ -59,7 +59,7 @@ internal class MapFragment() : BaseFragment<MapViewModel,FragmentMapBinding>(),
         mapFragment!!.getMapAsync(this)
 
     }
-    fun requirePermissions(permissions: Array<String>, requestCode: Int) {
+    private fun requirePermissions(permissions: Array<String>, requestCode: Int) {
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             permissionGranted(requestCode)
         } else {
