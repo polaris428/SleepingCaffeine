@@ -47,6 +47,7 @@ internal class SplashViewModel(
             _splashStateLiveData.postValue(SplashState.LoginSuccess)
             preferenceManager.setString("profile",task.result.photoUrl.toString())
             preferenceManager.setString("name",task.result.familyName+task.result.givenName.toString())
+            preferenceManager.setString("profileImage",task.result.photoUrl.toString())
             preferenceManager.putIdToken(task.result.id.toString())
 
         } else {
