@@ -44,10 +44,13 @@ internal class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>()
         }
     }
 
-    private fun initView() {
+    private fun initView() = with(binding){
         binding.addCaffeineButton.setOnClickListener {
             startActivity(Intent(binding.root.context, DrinkListActivity::class.java))
         }
+        circleFlowingView.setLineColor("#000000")
+        circleFlowingView.setSpeed(2)
+        circleFlowingView.setProgress(50f)
     }
 
     private fun handleItemSuccessState(state: HomeState.Success)= with(binding){
