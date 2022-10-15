@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.map.MapFragment">
 
     <fragment
@@ -12,10 +13,25 @@
         class="com.google.android.gms.maps.SupportMapFragment">
 
     </fragment>
-
     <Button
-        android:id="@+id/button"
+        android:id="@+id/initializedButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <Button
+        android:id="@+id/starbucksButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/starbucks"
+        app:layout_constraintStart_toEndOf="@+id/initializedButton"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <Button
+        android:id="@+id/ediyaButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@+id/starbucksButton"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/ediya"/>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

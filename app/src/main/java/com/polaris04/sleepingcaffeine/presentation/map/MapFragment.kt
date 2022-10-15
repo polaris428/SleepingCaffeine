@@ -41,13 +41,13 @@ internal class MapFragment() : BaseFragment<MapViewModel, FragmentMapBinding>(),
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
 
     lateinit var mLastLocation: Location
-    private lateinit var mMap: GoogleMap
+    private  var mMap: GoogleMap?=null
     // 현재 위치를 검색하기 위함
 
     var previousMarker: ArrayList<Marker> = arrayListOf()
-
+    var mapSearchType:MapSearchType=MapSearchType.Initialized
     lateinit var currentPosition: LatLng
-    var code = 0
+
     lateinit var mLocationRequest: LocationRequest
     override fun getViewBinding() = FragmentMapBinding.inflate(layoutInflater)
 
@@ -57,43 +57,49 @@ internal class MapFragment() : BaseFragment<MapViewModel, FragmentMapBinding>(),
             is MapState.UnInitialized -> {
                 initView()
 
-                mapLiveData()
             }
+            is MapState.MapSuccess->{
+                mMap = it.googleMap
+                startLocationUpdates()
+            }
+
         }
-    }
-
-    fun mapLiveData() = viewModel.mapLiveData.observe(this) {
-        mMap = it
-
-        startLocationUpdates()
-
 
     }
+
+
 
     private fun initView() {
-        val permissions = arrayOf(
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        )
+        val permissions = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
 
-        mLocationRequest = LocationRequest.create().apply {
-
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-
-        }
+        mLocationRequest = LocationRequest.create().apply { priority = LocationRequest.PRIORITY_HIGH_ACCURACY }
 
         requirePermissions(permissions)
+        binding.initializedButton.setOnClickListener {
+            mMap!!.clear()
+            mapSearchType=MapSearchType.Initialized
+            showPlaceInformation(currentPosition)
+        }
+        binding.starbucksButton.setOnClickListener {
+            mMap!!.clear()
+            mapSearchType=MapSearchType.Starbucks
+            showPlaceInformation(currentPosition)
+        }
+        binding.ediyaButton.setOnClickListener {
+            mMap!!.clear()
+            mapSearchType=MapSearchType.Ediya
+            showPlaceInformation(currentPosition)
+        }
+
+
 
 
     }
 
     private fun initGoogleMap() {
-        val mapFragment = childFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment?
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment!!.getMapAsync(viewModel.mapReadyCallback)
-        binding.button.setOnClickListener {
-            mMap.clear()
-        }
+
 
 
     }
@@ -136,10 +142,7 @@ internal class MapFragment() : BaseFragment<MapViewModel, FragmentMapBinding>(),
 
     // 권한이 없는 경우 실행
     private fun permissionDenied() {
-        Toast.makeText(
-            activity, "권한 승인이 필요합니다.", Toast.LENGTH_LONG
-        )
-            .show()
+        Toast.makeText(activity, "권한 승인이 필요합니다.", Toast.LENGTH_LONG).show()
     }
 
 
@@ -197,7 +200,6 @@ internal class MapFragment() : BaseFragment<MapViewModel, FragmentMapBinding>(),
 
     override fun onPlacesSuccess(places: MutableList<Place>?) {
         requireActivity().runOnUiThread(Runnable {
-
             for (place in places!!) {
                 val latLng = LatLng(place.latitude, place.longitude)
 
@@ -206,8 +208,29 @@ internal class MapFragment() : BaseFragment<MapViewModel, FragmentMapBinding>(),
                 markerOptions.position(latLng)
                 markerOptions.title(place.name)
                 markerOptions.snippet(markerSnippet)
-                val item = mMap.addMarker(markerOptions)
-                previousMarker.add(item!!)
+                when(mapSearchType){
+                    is MapSearchType.Initialized->{
+                        val item = mMap!!.addMarker(markerOptions)
+                        previousMarker.add(item!!)
+                    }
+                    is MapSearchType.Starbucks->{
+                        Log.d("Starbucks","Starbucks")
+                        if (place.name.toString().contains("Starbucks")){
+                            val item = mMap!!.addMarker(markerOptions)
+                            previousMarker.add(item!!)
+                        }
+
+                    }
+                    is MapSearchType.Ediya->{
+                        if (place.name.contains("EDIYA")||place.name.contains("Ediya")){
+                            val item = mMap!!.addMarker(markerOptions)
+                            previousMarker.add(item!!)
+                        }
+
+                    }
+                }
+
+
 
 
             }
@@ -225,7 +248,7 @@ internal class MapFragment() : BaseFragment<MapViewModel, FragmentMapBinding>(),
     }
 
     fun showPlaceInformation(location: LatLng) {
-        mMap.clear() //지도 클리어
+        mMap!!.clear() //지도 클리어
         NRPlaces.Builder()
             .listener(this)
             .key("AIzaSyAY6EjXB4WtfXJXIQzj8Hp3QHJmGXoyCvI")
@@ -234,7 +257,7 @@ internal class MapFragment() : BaseFragment<MapViewModel, FragmentMapBinding>(),
             .type(PlaceType.CAFE) //음식점
             .build()
             .execute()
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
+        mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
     }
 
     private fun getCurrentAddress(latlng: LatLng): String {

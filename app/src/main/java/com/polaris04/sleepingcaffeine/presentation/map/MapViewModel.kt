@@ -23,8 +23,7 @@ import noman.googleplaces.PlacesListener
 internal class MapViewModel : BaseViewModel(){
     private var _mapState = MutableLiveData<MapState>(MapState.UnInitialized)
     val mapState: LiveData<MapState> = _mapState
-    private var _mapMutableLiveData= MutableLiveData<GoogleMap>()
-    val mapLiveData= _mapMutableLiveData
+
 
 
     override fun fetchData() = viewModelScope.launch {
@@ -36,7 +35,7 @@ internal class MapViewModel : BaseViewModel(){
     }
 
     val mapReadyCallback= OnMapReadyCallback {
-        _mapMutableLiveData.value=it
+       setState(MapState.MapSuccess(it))
 
     }
 

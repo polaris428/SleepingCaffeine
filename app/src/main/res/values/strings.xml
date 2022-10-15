@@ -8,4 +8,6 @@
     <string name="caffeine_mg">카페인(mg)</string>
     <string name="add">추가하기</string>
     <string name="Error">잠시후 다시 시도해주세요</string>
+    <string name="starbucks">스타벅스</string>
+    <string name="ediya">이디야</string>
 </resources>
