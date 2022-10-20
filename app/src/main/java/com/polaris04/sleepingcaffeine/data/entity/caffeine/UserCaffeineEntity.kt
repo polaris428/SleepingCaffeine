@@ -1,6 +1,5 @@
 package com.polaris04.sleepingcaffeine.data.entity.caffeine
 
-import com.polaris04.sleepingcaffeine.data.entity.drink.CaffeineDrinkEntity
-import com.polaris04.sleepingcaffeine.data.entity.drink.Drink
+import com.polaris04.sleepingcaffeine.data.entity.drink.DrinkEntity
 
-data class UserCaffeineEntity(var date:String,var caffeine:String,var drinks:List<Drink>)
+data class UserCaffeineEntity(var date:String,var caffeine:String,var drinkEntities:List<DrinkEntity>)

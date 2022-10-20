@@ -1,22 +1,11 @@
 package com.polaris04.sleepingcaffeine.presentation.home
 
 import android.content.Intent
-import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.core.net.toUri
-import com.polaris04.sleepingcaffeine.R
-import com.polaris04.sleepingcaffeine.data.entity.drink.Drink
 import com.polaris04.sleepingcaffeine.databinding.FragmentHomeBinding
 import com.polaris04.sleepingcaffeine.extensions.loadCenterCrop
 import com.polaris04.sleepingcaffeine.presentation.BaseFragment
 import com.polaris04.sleepingcaffeine.presentation.caffeine_list.DrinkListActivity
 import com.polaris04.sleepingcaffeine.presentation.caffeine_list.adapter.DrinkAdapter
-import com.polaris04.sleepingcaffeine.presentation.home.adpter.UserCaffeineAdapter
-import com.polaris04.sleepingcaffeine.presentation.main.MainState
 import org.koin.android.ext.android.inject
 
 
@@ -67,7 +56,7 @@ internal class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>()
     private fun handleItemSuccessState(state: HomeState.Success)= with(binding){
         var adapter= DrinkAdapter()
         userCaffeineRecyclerView.adapter=adapter
-        adapter.setDrinkList(state.drinkList!!.drinks)
+        adapter.setDrinkList(state.drinkList!!.drinkEntities)
 
 
     }

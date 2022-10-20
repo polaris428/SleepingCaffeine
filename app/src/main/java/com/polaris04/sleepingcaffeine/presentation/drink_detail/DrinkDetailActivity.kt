@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.util.Log
 import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -86,16 +85,16 @@ internal class DrinkDetailActivity :
 
     private fun handleItemSuccessState(state: DrinkDetailState.ItemSuccess) = with(binding) {
 
-         drink = state.drink
+         drink = state.drinkEntity
 
-        val url = URL(state.drink.photo)
+        val url = URL(state.drinkEntity.photo)
         progressBar.isGone = true
         thread {
             val mIcon1 = BitmapFactory.decodeStream(url.openConnection().getInputStream());
             createPaletteAsync(mIcon1)
         }
         drinkAddButton.setOnClickListener {
-            viewModel.postCaffeine(drinkId = state.drink._id, caffeine = state.drink.caffeine)
+            viewModel.postCaffeine(drinkId = state.drinkEntity._id, caffeine = state.drinkEntity.caffeine)
         }
 
     }

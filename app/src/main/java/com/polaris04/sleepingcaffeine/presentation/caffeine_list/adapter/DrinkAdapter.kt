@@ -3,22 +3,22 @@ package com.polaris04.sleepingcaffeine.presentation.caffeine_list.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.polaris04.sleepingcaffeine.data.entity.drink.Drink
+import com.polaris04.sleepingcaffeine.data.entity.drink.DrinkEntity
 import com.polaris04.sleepingcaffeine.databinding.ItemDrinkBinding
 
 class DrinkAdapter : RecyclerView.Adapter<DrinkAdapter.DrinkViewHolder>() {
-    private var drinkList: List<Drink> = listOf()
-    private lateinit var productItemClickListener: (Drink) -> Unit
+    private var drinkEntityList: List<DrinkEntity> = listOf()
+    private lateinit var productItemClickListener: (DrinkEntity) -> Unit
 
     class DrinkViewHolder(
         val binding: ItemDrinkBinding,
-        val productItemClickListener: (Drink) -> Unit
+        val productItemClickListener: (DrinkEntity) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(drink: Drink) {
+        fun bind(drinkEntity: DrinkEntity) {
 
-            binding.drink = drink
+            binding.drink = drinkEntity
             binding.root.setOnClickListener {
-                productItemClickListener(drink)
+                productItemClickListener(drinkEntity)
             }
         }
     }
@@ -30,13 +30,13 @@ class DrinkAdapter : RecyclerView.Adapter<DrinkAdapter.DrinkViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: DrinkViewHolder, position: Int) {
-        holder.bind(drinkList[position])
+        holder.bind(drinkEntityList[position])
     }
 
-    override fun getItemCount() = drinkList.size
+    override fun getItemCount() = drinkEntityList.size
 
-    fun setDrinkList(drinkList: List<Drink>, drinkItemClickListener: (Drink) -> Unit = { }) {
-        this.drinkList = drinkList
+    fun setDrinkList(drinkEntityList: List<DrinkEntity>, drinkItemClickListener: (DrinkEntity) -> Unit = { }) {
+        this.drinkEntityList = drinkEntityList
         this.productItemClickListener = drinkItemClickListener
         notifyDataSetChanged()
     }

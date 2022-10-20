@@ -3,21 +3,19 @@ package com.polaris04.sleepingcaffeine.presentation.drink_detail.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.polaris04.sleepingcaffeine.data.entity.drink.CaffeineDrinkEntity
-import com.polaris04.sleepingcaffeine.data.entity.drink.Drink
+import com.polaris04.sleepingcaffeine.data.entity.drink.DrinkEntity
 import com.polaris04.sleepingcaffeine.databinding.ItemDrinkBinding
-import com.polaris04.sleepingcaffeine.presentation.caffeine_list.adapter.DrinkAdapter
 
 class DrinkDetailAdapter : RecyclerView.Adapter<DrinkDetailAdapter.DrinkDetailViewHolder>() {
-    private var drinkList:List<Drink> = listOf()
-    private lateinit var productItemClickListener: (Drink) -> Unit
+    private var drinkEntityList:List<DrinkEntity> = listOf()
+    private lateinit var productItemClickListener: (DrinkEntity) -> Unit
 
     class DrinkDetailViewHolder(
         val itemDrinkBinding: ItemDrinkBinding,
-        val productItemClickListener: (Drink) -> Unit
+        val productItemClickListener: (DrinkEntity) -> Unit
     ) : RecyclerView.ViewHolder(itemDrinkBinding.root) {
-            fun  bind(drink:Drink){
-                itemDrinkBinding.drink = drink
+            fun  bind(drinkEntity:DrinkEntity){
+                itemDrinkBinding.drink = drinkEntity
             }
 
     }
@@ -29,13 +27,13 @@ class DrinkDetailAdapter : RecyclerView.Adapter<DrinkDetailAdapter.DrinkDetailVi
     }
 
     override fun onBindViewHolder(holder: DrinkDetailViewHolder, position: Int) {
-        holder.bind(drinkList[position])
+        holder.bind(drinkEntityList[position])
     }
 
-    override fun getItemCount() = drinkList.size
+    override fun getItemCount() = drinkEntityList.size
 
-    fun setDrinkList(drinkList: List<Drink>, drinkItemClickListener: (Drink) -> Unit = { }) {
-        this.drinkList = drinkList
+    fun setDrinkList(drinkEntityList: List<DrinkEntity>, drinkItemClickListener: (DrinkEntity) -> Unit = { }) {
+        this.drinkEntityList = drinkEntityList
         this.productItemClickListener = drinkItemClickListener
         notifyDataSetChanged()
     }

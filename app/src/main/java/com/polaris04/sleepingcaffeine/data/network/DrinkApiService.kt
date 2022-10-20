@@ -5,7 +5,7 @@ import com.polaris04.sleepingcaffeine.data.entity.caffeine.PostCaffeineEntity
 import com.polaris04.sleepingcaffeine.data.entity.caffeine.ResultEntity
 import com.polaris04.sleepingcaffeine.data.entity.caffeine.UserCaffeineEntity
 import com.polaris04.sleepingcaffeine.data.entity.drink.CaffeineDrinkEntity
-import com.polaris04.sleepingcaffeine.data.entity.drink.Drink
+import com.polaris04.sleepingcaffeine.data.entity.drink.DrinkEntity
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -14,7 +14,7 @@ interface DrinkApiService {
     suspend fun getDrinkList(): Response<CaffeineDrinkEntity>
 
     @GET("api/drink/{drink_id}")
-    suspend fun getDrink(@Path("drink_id") drinkId: String): Response<Drink>
+    suspend fun getDrink(@Path("drink_id") drinkId: String): Response<DrinkEntity>
 
     @POST("/api/caffeine")
     suspend fun postDrink(@Header("token")token: String ,@Body postCaffeine:PostCaffeineEntity):Response<ResultEntity>

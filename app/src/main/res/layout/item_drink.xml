@@ -5,7 +5,7 @@
 
         <variable
             name="drink"
-            type="com.polaris04.sleepingcaffeine.data.entity.drink.Drink" />
+            type="com.polaris04.sleepingcaffeine.data.entity.drink.DrinkEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
