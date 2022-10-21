@@ -1,6 +1,9 @@
 package com.polaris04.sleepingcaffeine.di
 
 import com.android.cleanarchitectureshoppingapp.data.preference.PreferenceManager
+import com.polaris04.sleepingcaffeine.data.db.dao.UserDrinkDao
+import com.polaris04.sleepingcaffeine.data.db.dao.userDrinkDb
+import com.polaris04.sleepingcaffeine.data.db.dao.userDrinkToDoDao
 import com.polaris04.sleepingcaffeine.data.network.*
 import com.polaris04.sleepingcaffeine.data.network.buildOkHttpClient
 import com.polaris04.sleepingcaffeine.data.network.drinkApiService
@@ -27,6 +30,7 @@ import com.polaris04.sleepingcaffeine.presentation.map.MapViewModel
 import com.polaris04.sleepingcaffeine.presentation.splash.SplashViewModel
 import com.polaris04.sleepingcaffeine.presentation.user.UserViewModel
 import kotlinx.coroutines.Dispatchers
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -66,6 +70,10 @@ val appModule = module {
     single { buildOkHttpClient() }
     single { drinkRetrofit(get(), get()) }
     single { drinkApiService(get()) }
+
+    //Database
+    single { userDrinkDb(androidApplication()) }
+    single { userDrinkToDoDao(get()) }
 
 
 }
