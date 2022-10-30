@@ -94,7 +94,7 @@ internal class DrinkDetailActivity :
             createPaletteAsync(mIcon1)
         }
         drinkAddButton.setOnClickListener {
-            viewModel.postCaffeine(drinkId = state.drinkEntity._id, caffeine = state.drinkEntity.caffeine)
+            viewModel.postCaffeine(state.drinkEntity)
         }
 
     }

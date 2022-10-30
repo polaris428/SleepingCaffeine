@@ -1,6 +1,7 @@
 package com.polaris04.sleepingcaffeine.presentation.home
 
 import android.content.Intent
+import android.widget.Toast
 import com.polaris04.sleepingcaffeine.databinding.FragmentHomeBinding
 import com.polaris04.sleepingcaffeine.extensions.loadCenterCrop
 import com.polaris04.sleepingcaffeine.presentation.BaseFragment

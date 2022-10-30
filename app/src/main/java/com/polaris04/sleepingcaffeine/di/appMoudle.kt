@@ -38,13 +38,13 @@ import org.koin.dsl.module
 val appModule = module {
 
     viewModel { MainViewModel() }
-    viewModel { HomeViewModel(get(),get()) }
+    viewModel { HomeViewModel(get(), get()) }
     viewModel { GraphViewModel() }
     viewModel { UserViewModel() }
     viewModel { SplashViewModel(get(), get(), get()) }
     viewModel { DrinkListViewModel(get()) }
-    viewModel { (drinkId:String)->DrinkDetailViewModel(drinkId,get(),get(),get(),get()) }
-    viewModel{MapViewModel()}
+    viewModel { (drinkId: String) -> DrinkDetailViewModel(drinkId, get(), get(), get(), get()) }
+    viewModel { MapViewModel() }
 
     //Coroutines Dispatcher
     single { Dispatchers.IO }
@@ -54,14 +54,14 @@ val appModule = module {
     factory { GoogleSignInUseCase(get()) }
 
     factory { GetDrinkListUseCase(get()) }
-    factory {  GetDrinkUseCase(get()) }
+    factory { GetDrinkUseCase(get()) }
 
     factory { PostCaffeineUseCase(get()) }
     factory { GetUserCaffeineUseCase(get()) }
 
     factory<GoogleSignRepositoryInterface> { GoogleSignRepository(androidContext()) }
     factory<DrinkRepositoryInterface> { DrinkRepository(get(), get()) }
-    factory <CaffeineRepositoryInterface>{ CaffeineRepository(get()) }
+    factory<CaffeineRepositoryInterface> { CaffeineRepository(get(), get()) }
 
     single { PreferenceManager(androidContext()) }
 
@@ -72,7 +72,7 @@ val appModule = module {
     single { drinkApiService(get()) }
 
     //Database
-    single { userDrinkDb(androidApplication()) }
+    single { userDrinkDb(androidContext()) }
     single { userDrinkToDoDao(get()) }
 
 

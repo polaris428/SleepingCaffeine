@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.android.cleanarchitectureshoppingapp.data.preference.PreferenceManager
 import com.polaris04.sleepingcaffeine.data.entity.drink.CaffeineDrinkEntity
+import com.polaris04.sleepingcaffeine.data.entity.drink.DrinkEntity
 import com.polaris04.sleepingcaffeine.domain.caffeine.PostCaffeineUseCase
 import com.polaris04.sleepingcaffeine.domain.drink.GetDrinkListUseCase
 import com.polaris04.sleepingcaffeine.domain.drink.GetDrinkUseCase
@@ -46,12 +47,9 @@ internal class DrinkDetailViewModel(
         _drinkDetailState.postValue(state)
     }
 
-    fun postCaffeine(caffeine:Int,drinkId: String)=viewModelScope.launch{
-        if(postCaffeineUseCase(getToken(),caffeine,drinkId)){
-            setState(DrinkDetailState.AddDrink)
-        }else{
-            setState(DrinkDetailState.Error)
-        }
+    fun postCaffeine(drinkEntity: DrinkEntity)=viewModelScope.launch{
+        postCaffeineUseCase(drinkEntity)
+
     }
     private fun getToken():String{
         return  preferenceManager.getIdToken()
