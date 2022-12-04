@@ -55,12 +55,9 @@ internal class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>()
     }
 
     private fun handleItemSuccessState(state: HomeState.Success)= with(binding){
-        Log.d("ehlsk",state.drinkList.toString())
+
         var adapter= DrinkAdapter()
-
-
         adapter.setDrinkList(state.drinkList)
-
         userCaffeineRecyclerView.adapter=adapter
 
     }
