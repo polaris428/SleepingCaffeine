@@ -61,7 +61,7 @@ val appModule = module {
 
     factory<GoogleSignRepositoryInterface> { GoogleSignRepository(androidContext()) }
     factory<DrinkRepositoryInterface> { DrinkRepository(get(), get()) }
-    factory<CaffeineRepositoryInterface> { CaffeineRepository(get(), get()) }
+    factory<CaffeineRepositoryInterface> { CaffeineRepository(get()) }
 
     single { PreferenceManager(androidContext()) }
 

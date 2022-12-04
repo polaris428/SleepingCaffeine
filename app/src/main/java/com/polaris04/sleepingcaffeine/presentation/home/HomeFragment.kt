@@ -1,7 +1,7 @@
 package com.polaris04.sleepingcaffeine.presentation.home
 
 import android.content.Intent
-import android.widget.Toast
+import android.util.Log
 import com.polaris04.sleepingcaffeine.databinding.FragmentHomeBinding
 import com.polaris04.sleepingcaffeine.extensions.loadCenterCrop
 import com.polaris04.sleepingcaffeine.presentation.BaseFragment
@@ -55,10 +55,13 @@ internal class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>()
     }
 
     private fun handleItemSuccessState(state: HomeState.Success)= with(binding){
+        Log.d("ehlsk",state.drinkList.toString())
         var adapter= DrinkAdapter()
-        userCaffeineRecyclerView.adapter=adapter
-        adapter.setDrinkList(state.drinkList!!.drinkEntities)
 
+
+        adapter.setDrinkList(state.drinkList)
+
+        userCaffeineRecyclerView.adapter=adapter
 
     }
 

@@ -1,6 +1,5 @@
 package com.polaris04.sleepingcaffeine.presentation.caffeine_list
 
-import android.content.ClipData.newIntent
 import android.util.Log
 import androidx.core.view.isVisible
 import com.polaris04.sleepingcaffeine.databinding.ActivityDrinkListBinding

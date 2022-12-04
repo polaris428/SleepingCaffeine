@@ -7,5 +7,5 @@ import com.polaris04.sleepingcaffeine.data.entity.drink.DrinkEntity
 interface  CaffeineRepositoryInterface{
     suspend fun postCaffeine(drinkEntity: DrinkEntity)
 
-    suspend fun getCaffeine(token: String):UserCaffeineEntity?
+    suspend fun getCaffeine():List<DrinkEntity>
 }

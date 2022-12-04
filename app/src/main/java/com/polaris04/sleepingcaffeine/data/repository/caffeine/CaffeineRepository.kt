@@ -10,7 +10,6 @@ import com.polaris04.sleepingcaffeine.data.network.DrinkApiService
 import kotlinx.coroutines.Dispatchers
 
 class CaffeineRepository(
-    var drinkApiService: DrinkApiService,
     private val userDrinkDao: UserDrinkDao) :
     CaffeineRepositoryInterface {
     override suspend fun postCaffeine(drinkEntity: DrinkEntity) {
@@ -18,16 +17,9 @@ class CaffeineRepository(
 
     }
 
-    override suspend fun getCaffeine(token: String): UserCaffeineEntity? = with(Dispatchers.IO) {
-        val response = drinkApiService.getUserCaffeine(token)
-        return try {
-            Log.d(response.body().toString(), "성공")
-            response.body()
-        } catch (e: Exception) {
-            Log.d("패", "실패")
-            Log.d(response.message(), response.message())
-            null
-        }
+    override suspend fun getCaffeine(): List<DrinkEntity> {
+      return userDrinkDao.getAll()
+
     }
 
 }

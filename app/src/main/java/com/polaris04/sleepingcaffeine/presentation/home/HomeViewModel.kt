@@ -18,11 +18,8 @@ internal class HomeViewModel(
     val homeState: LiveData<HomeState> = _homeState
     override fun fetchData() = viewModelScope.launch {
         setState(HomeState.Loading)
-        getUserCaffeineUseCase(preferenceManager.getIdToken())?.let {
-            setState(HomeState.Success(it))
-        } ?: kotlin.run {
-            setState(HomeState.Error)
-        }
+        Log.d("DTO",getUserCaffeineUseCase().toString())
+        setState(HomeState.Success(getUserCaffeineUseCase()))
 
     }
 
