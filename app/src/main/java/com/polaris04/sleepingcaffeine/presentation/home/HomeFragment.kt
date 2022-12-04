@@ -7,6 +7,7 @@ import com.polaris04.sleepingcaffeine.extensions.loadCenterCrop
 import com.polaris04.sleepingcaffeine.presentation.BaseFragment
 import com.polaris04.sleepingcaffeine.presentation.caffeine_list.DrinkListActivity
 import com.polaris04.sleepingcaffeine.presentation.caffeine_list.adapter.DrinkAdapter
+import com.polaris04.sleepingcaffeine.presentation.drink_detail.DrinkDetailActivity
 import org.koin.android.ext.android.inject
 
 
@@ -45,9 +46,6 @@ internal class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>()
             startActivity(Intent(binding.root.context, DrinkListActivity::class.java))
         }
 
-
-
-
     }
 
     private fun loadImage() =with(binding){
@@ -57,7 +55,11 @@ internal class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>()
     private fun handleItemSuccessState(state: HomeState.Success)= with(binding){
 
         var adapter= DrinkAdapter()
-        adapter.setDrinkList(state.drinkList)
+        adapter.setDrinkList(state.drinkList){
+            startActivity(
+                DrinkDetailActivity.newIntent(binding.root.context , it._id)
+            )
+        }
         userCaffeineRecyclerView.adapter=adapter
 
     }
